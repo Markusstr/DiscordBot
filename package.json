@@ -1,0 +1,29 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Markusstr/DiscordBot.git"
+  },
+  "author": "Markusstr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Markusstr/DiscordBot/issues"
+  },
+  "homepage": "https://github.com/Markusstr/DiscordBot#readme",
+  "devDependencies": {
+    "eslint": "^5.15.3"
+  },
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "erlpack": "github:hammerandchisel/erlpack",
+    "libsodium-wrappers": "^0.7.4",
+    "node-opus": "^0.3.1",
+    "uws": "^100.0.1"
+  }
+}
