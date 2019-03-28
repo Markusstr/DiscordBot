@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 exports.run = (client,message,args) => {
 
 };
