@@ -5,16 +5,17 @@ const TOKEN = require('./token.json').token;
 const fs = require('fs');
 
 client.commands = new Discord.Collection();
+client.log = require('./logger').log;
 
 fs.readdir('./commands/', (err, files) => {
     if (err) console.log(err);
     let jsfile = files.filter(file => file.split('.').pop() === 'js');
     if(jsfile.length <= 0) {
-        console.log('Couldn\'t find commands!');
+        client.log('Couldn\'t find commands!');
         return;
     }
     else {
-        console.log(`${jsfile.length} commands found.`);
+        client.log(`${jsfile.length} commands found.`);
     }
     jsfile.forEach((file,i) => {
         let props = require(`./commands/${file}`);
@@ -24,7 +25,7 @@ fs.readdir('./commands/', (err, files) => {
 });
 
 client.on('ready', () => {
-    console.log('Botti on päällä');
+    client.log('Botti on päällä');
 });
 
 client.on('message', message => {
