@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const config = require('./config.js');
 const client = new Discord.Client({autoReconnect:true});
-const TOKEN = 'NTU3NTgyNjMyMDk1OTczMzg2.D3eM9w.DsvEF-egAgAm16O0NsLgiyu67PI';
+const TOKEN = require('./token.json').token;
 const fs = require('fs');
 
 client.commands = new Discord.Collection();
