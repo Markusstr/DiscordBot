@@ -45,8 +45,23 @@ client.on('message', message => {
             return;
         }
         if (message.content.startsWith(message.guild.emojis.find(emoji => emoji.name === 'kopkopsaatana'))) {
-            console.log('test');
-            let VoiceChannel = message.member.guild.channels.filter(channel => channel.type === 'voice');
+            let VoiceChannel = message.guild.channels
+                .filter(channel => channel.type === 'voice') // Suodatetaan vain äänikanavat
+                .sort((a,b) => b.members.size-a.members.size) // Järjestetään laskevaan järjestykseen.
+                .first(); // Otetaan ensimmäinen, tässä tapauksessa isoin.
+
+            //VoiceChannel.forEach(ch => console.log(ch.name));
+
+
+            if (VoiceChannel.full) {
+                message.member.setVoiceChannel(VoiceChannel.id)
+                    .then(client.log)
+                    .catch(client.log);
+            } else if (VoiceChannel.members.size === 0) {
+                message.reply('*Koputuksesi kaikuvat tyhjillä kanavilla...* Kaikki kanavat ovat tyhjiä.');
+            } else {
+                message.reply('Kanava ei ole täynnä, voit liittyä sinne itse.');
+            }
         }
     }
 });
