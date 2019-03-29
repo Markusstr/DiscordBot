@@ -39,7 +39,7 @@ client.on('message', message => {
         cmd.run(client,message,args);
     }
     else {
-        if (message.content.startsWith('!')) {
+        if (message.content.startsWith(prefix)) {
             message.channel.send(`Komentoa ${message} ei ole olemassa.`);
             return;
         }
