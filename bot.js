@@ -44,6 +44,10 @@ client.on('message', message => {
             message.channel.send(`Komentoa ${message} ei ole olemassa.`);
             return;
         }
+        if (message.content.startsWith(message.guild.emojis.find(emoji => emoji.name === 'kopkopsaatana'))) {
+            console.log('test');
+            let VoiceChannel = message.member.guild.channels.filter(channel => channel.type === 'voice');
+        }
     }
 });
 
