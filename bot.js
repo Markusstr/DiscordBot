@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
 const config = require('./config.js');
 const client = new Discord.Client({autoReconnect:true});
-const TOKEN = require('./token.json').token;
 const fs = require('fs');
+const userCooldown = new Set();
 
 client.commands = new Discord.Collection();
 client.log = require('./logger').log;
+client.tokens = require('./token.json');
 
 fs.readdir('./commands/', (err, files) => {
     if (err) console.log(err);
@@ -15,11 +16,11 @@ fs.readdir('./commands/', (err, files) => {
         return;
     }
     else {
-        client.log(`${jsfile.length} commands found.`);
+        client.log(`${jsfile.length} komentoa ladattu.`);
     }
     jsfile.forEach((file,i) => {
         let props = require(`./commands/${file}`);
-        console.log(`${i + 1} : ${file} loaded.`);
+        console.log(`${i + 1} : ${file} ladattu.`);
         client.commands.set(props.help.name, props);
     });
 });
@@ -54,9 +55,19 @@ client.on('message', message => {
 
 
             if (VoiceChannel.full) {
-                message.member.setVoiceChannel(VoiceChannel.id)
+                if (userCooldown.has(message.author.id)) {
+                    message.channel.send('Voit koputtaa kanavalle vain kerran 10 minuutissa. ' + message.author);
+                }
+                else {
+                    client.log('Kopotus');
+                    userCooldown.add(message.author.id);
+                    setTimeout(() => {
+                        userCooldown.delete(message.author.id);
+                    }, 600000);
+                }
+                /*message.member.setVoiceChannel(VoiceChannel.id)
                     .then(client.log)
-                    .catch(client.log);
+                    .catch(client.log);*/
             } else if (VoiceChannel.members.size === 0) {
                 message.reply('*Koputuksesi kaikuvat tyhjillä kanavilla...* Kaikki kanavat ovat tyhjiä.');
             } else {
@@ -66,4 +77,4 @@ client.on('message', message => {
     }
 });
 
-client.login(TOKEN);
+client.login(client.tokens.token);
