@@ -33,7 +33,8 @@ client.on('message', message => {
     if(message.author.bot) return;
     let prefix = config.prefix;
     let messageArr = message.content.split(' ');
-    let command = messageArr[0];
+    let command = messageArr[0].toLowerCase();
+    client.log(`${command}`);
     let args = messageArr.slice(1);
 
     let cmd = client.commands.get(command.slice(prefix.length));
