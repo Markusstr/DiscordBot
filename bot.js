@@ -12,7 +12,7 @@ fs.readdir('./commands/', (err, files) => {
     if (err) console.log(err);
     let jsfile = files.filter(file => file.split('.').pop() === 'js');
     if(jsfile.length <= 0) {
-        client.log('Couldn\'t find commands!');
+        client.log('Komentoja ei löytynyt!');
         return;
     }
     else {
@@ -34,7 +34,6 @@ client.on('message', message => {
     let prefix = config.prefix;
     let messageArr = message.content.split(' ');
     let command = messageArr[0].toLowerCase();
-    client.log(`${command}`);
     let args = messageArr.slice(1);
 
     let cmd = client.commands.get(command.slice(prefix.length));
