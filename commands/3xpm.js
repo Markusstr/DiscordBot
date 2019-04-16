@@ -15,7 +15,7 @@ exports.run = async (client,message,args) => {
     }
     catch(err) {
         if (args.join(' ') === '') {
-            message.channel.send('Et antanut joukkueen nimeä!\nKomennon käyttö: !3xpm joukkue');
+            message.channel.send('Et antanut joukkueen nimeä!\nKomennon käyttö: !3xPM joukkue');
         }
         else {
             message.channel.send('Joukkuetta ' + args.join(' ') + ' ei löytynyt.');
