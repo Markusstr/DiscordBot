@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Markusstr/DiscordBot#readme",
   "devDependencies": {
-    "eslint": "^5.15.3"
+    "eslint": "^5.16.0"
   },
   "dependencies": {
     "discord.js": "^11.4.2",
