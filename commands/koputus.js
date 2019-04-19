@@ -1,3 +1,4 @@
+const fs = require('fs');
 const userCooldown = new Set();
 
 let connection;
@@ -20,7 +21,7 @@ async function koputa(client, message) {
     if (VoiceChannel.full) {
         if (userCooldown.has(message.author.id)) {
             // Käyttäjällä on cooldown
-            message.channel.send('Voit koputtaa kanavalle vain kerran 10 minuutissa. ' + message.author);
+            message.channel.send('Voit koputtaa kanavalle vain kerran 5 minuutissa. ' + message.author);
 
         } else {
             // Käyttäjällä ei ole cooldownia. Koputetaan!
@@ -29,17 +30,26 @@ async function koputa(client, message) {
             userCooldown.add(message.author.id);
             setTimeout(() => {
                 userCooldown.delete(message.author.id);
-            }, 600000);
+            }, 5*60000 );
 
             connection = await VoiceChannel.join();
             client.serverVariables.get(message.guild.id).isPlaying = true;
-            let dispatcher = connection.playFile('./sounds/koputus/kopkop.mp3');
-            //let dispatcher = connection.playArbitraryInput('https://stream.bauermedia.fi/iskelma/iskelma_128.mp3');
+
+            let tiedostot = fs.readdirSync('./sounds/koputus/');
+            if(tiedostot.length <= 0) {
+                client.log('Ääniä ei löytynyt!');
+                return;
+            }
+            let tiedosto = tiedostot[getRndInteger(0, tiedostot.length)];
+
+            let dispatcher = connection.playFile(`./sounds/koputus/${tiedosto}`);
 
 
             dispatcher.once('end', () => {
-                connection.disconnect();
-                client.serverVariables.get(message.guild.id).isPlaying = false;
+                setTimeout(() => {
+                    connection.disconnect();
+                    client.serverVariables.get(message.guild.id).isPlaying = false;
+                }, 1000);
             });
 
             dispatcher.on('error', e => {
@@ -63,4 +73,13 @@ async function koputa(client, message) {
 module.exports = { koputa };
 
 
+
+/**
+ * Generate random integer between given values.
+ * @param {Number} min 
+ * @param {Number} max 
+ */
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+}
 
