@@ -1,7 +1,7 @@
 const fs = require('fs');
 const userCooldown = new Set();
 
-let connection;
+
 
 
 async function koputa(client, message) {
@@ -12,8 +12,8 @@ async function koputa(client, message) {
         .first(); // Otetaan ensimmäinen, tässä tapauksessa isoin.
 
 
+    if(message.guild.voiceConnection.speaking) { // Jos botti on jo liittynyt kanavalle
 
-    if(client.serverVariables.get(message.guild.id).isPlaying === true) {
         message.reply('Nyt on vähän kiire, kokeile myöhemmin uudelleen.');
         return;
     }
@@ -32,8 +32,8 @@ async function koputa(client, message) {
                 userCooldown.delete(message.author.id);
             }, 5*60000 );
 
-            connection = await VoiceChannel.join();
-            client.serverVariables.get(message.guild.id).isPlaying = true;
+            let connection = await VoiceChannel.join();
+            //client.serverVariables.get(message.guild.id).isPlaying = true;
 
             let tiedostot = fs.readdirSync('./sounds/koputus/');
             if(tiedostot.length <= 0) {
@@ -48,7 +48,7 @@ async function koputa(client, message) {
             dispatcher.once('end', () => {
                 setTimeout(() => {
                     connection.disconnect();
-                    client.serverVariables.get(message.guild.id).isPlaying = false;
+                    //client.serverVariables.get(message.guild.id).isPlaying = false;
                 }, 1000);
             });
 
