@@ -2,14 +2,15 @@ const Discord = require('discord.js');
 const config = require('./config.js');
 const client = new Discord.Client({autoReconnect:true});
 const fs = require('fs');
+//const settings = require('./settings');
 
-const koputus = require('./commands/koputus');
+//const koputus = require('./commands/koputus');
 
 client.commands = new Discord.Collection();
 client.log = require('./logger').log;
 client.tokens = require('./token.json');
 
-client.serverVariables = new Discord.Collection();
+//client.volume = 0.2;
 
 
 fs.readdir('./commands/', (err, files) => {
@@ -32,9 +33,7 @@ fs.readdir('./commands/', (err, files) => {
 client.on('ready', () => {
     client.log('Botti on päällä');
 
-    client.guilds.forEach(guild => client.serverVariables.set(guild.id, {
-        isPlaying: false
-    }));
+    //settings.init(client); // Tarkista että kaikilla palvelimilla on oma asetustiedosto.
 
 });
 
@@ -47,17 +46,19 @@ client.on('message', message => {
 
     let cmd = client.commands.get(command.slice(prefix.length));
     if (cmd) {
-        cmd.run(client,message,args);
+        if (message.content.startsWith(prefix)) {
+            cmd.run(client,message,args);
+        }
     }
     else {
         if (message.content.startsWith(prefix)) {
             message.channel.send(`Komentoa ${message} ei ole olemassa.`);
             return;
         }
-        if (message.content.startsWith(message.guild.emojis.find(emoji => emoji.name === 'kopkopsaatana'))) {
+        /* if (message.content.startsWith(message.guild.emojis.find(emoji => emoji.name === 'kopkopsaatana'))) {
             //tästä koputukseen
             koputus.koputa(client, message);
-        }
+        } */
     }
 });
 
