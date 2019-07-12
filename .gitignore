@@ -2,3 +2,7 @@ node_modules
 
 # Salainen token
 token.json
+
+# Äänet
+sounds
+guild_settings
