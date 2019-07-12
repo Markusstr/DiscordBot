@@ -10,12 +10,14 @@ exports.run = async (client,message,args) => {
         client.log(`GetParticipantsError: ${getParticipantsError}`);
     }
     let captainID;
+    let teamID;
     try {
         captainID = participantsObject.find(team => team.participant.display_name.toLowerCase() === args.join(' ').toLowerCase()).participant.group_player_ids[0];
+        teamID = participantsObject.find(team => team.participant.display_name.toLowerCase() === args.join(' ').toLowerCase()).participant.id;
     }
     catch(err) {
         if (args.join(' ') === '') {
-            message.channel.send('Et antanut joukkueen nimeä!\nKomennon käyttö: !3xpm joukkue');
+            message.channel.send('Et antanut joukkueen nimeä!\nKomennon käyttö: !3xPM joukkue');
         }
         else {
             message.channel.send('Joukkuetta ' + args.join(' ') + ' ei löytynyt.');
@@ -28,17 +30,19 @@ exports.run = async (client,message,args) => {
     catch(getMatchesError) {
         client.log(`GetMatchesError: ${getMatchesError}`);
     }
-    let games = matchesObject.filter(game => game.match.player1_id === captainID || game.match.player2_id === captainID);
+    let games = matchesObject.filter(game => game.match.player1_id === captainID || game.match.player2_id === captainID || game.match.player1_id === teamID || game.match.player2_id === teamID);
 
     let menneetpelit = games.filter(game => game.match.state === 'complete');
-    let tulevatpelit = games.filter(game => game.match.state === 'open');
+    let tulevatpelit = games.filter(game => game.match.state === 'open' || game.match.state === 'pending');
 
     let viesti = '**Menneet pelit:**\n';
 
+    if (isEmpty(menneetpelit)) viesti = viesti.concat('Joukkueelle ei ole merkattu yhtään mennyttä peliä.');
+
     menneetpelit.forEach(peli => {
 
-        let tiimi1 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player1_id).participant;
-        let tiimi2 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player2_id).participant;
+        let tiimi1 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player1_id || osallistuja.participant.id === peli.match.player1_id).participant;
+        let tiimi2 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player2_id || osallistuja.participant.id === peli.match.player2_id).participant;
 
         let tiimi1lopputulos = 0, tiimi2lopputulos = 0;
 
@@ -55,10 +59,15 @@ exports.run = async (client,message,args) => {
 
     viesti = viesti.concat('\n**Tulevat pelit:**\n');
 
+    if (isEmpty(tulevatpelit)) viesti = viesti.concat('Joukkueelle ei ole merkattu yhtään tulevaa peliä.');
+
     tulevatpelit.forEach(peli => {
 
-        let tiimi1 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player1_id).participant;
-        let tiimi2 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player2_id).participant;
+
+        //let tiimi1 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player1_id).participant;
+        //let tiimi2 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player2_id).participant;
+        let tiimi1 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player1_id || osallistuja.participant.id === peli.match.player1_id).participant;
+        let tiimi2 = participantsObject.find(osallistuja => osallistuja.participant.group_player_ids[0] === peli.match.player2_id || osallistuja.participant.id === peli.match.player2_id).participant;
 
         let tiimi1lopputulos = 0, tiimi2lopputulos = 0;
 
@@ -107,6 +116,15 @@ async function getMatches(client) {
     catch(matchesError) {
         client.log(`MatchesError: ${matchesError}`);
     }
+}
+
+function isEmpty(obj) {
+    for(var i in obj) {
+        if (obj.hasOwnProperty(i)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 exports.help = {
