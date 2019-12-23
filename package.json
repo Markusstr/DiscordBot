@@ -17,14 +17,14 @@
   },
   "homepage": "https://github.com/Markusstr/DiscordBot#readme",
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "eslint": "^6.8.0"
   },
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "erlpack": "github:discordapp/erlpack",
-    "got": "^9.6.0",
-    "libsodium-wrappers": "^0.7.4",
-    "node-opus": "^0.3.1",
+    "discord.js": "^11.5.1",
+    "erlpack": "^0.1.3",
+    "got": "^10.1.0",
+    "libsodium-wrappers": "^0.7.6",
+    "node-opus": "^0.3.3",
     "uws": "^100.0.1"
   }
 }

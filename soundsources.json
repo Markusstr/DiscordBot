@@ -1,0 +1,97 @@
+[
+    {
+        "name": "Iskelmä",
+        "path": "https://stream.bauermedia.fi/iskelma/iskelma_128.mp3",
+        "local": false
+    },
+    {
+        "name": "Radio Nova",
+        "path": "https://stream.bauermedia.fi/radionova/radionova_128.mp3",
+        "local": false
+    },
+    {
+        "name": "Loop",
+        "path": "https://digitacdn.akamaized.net/hls/live/629243/loop/master-128000.m3u8",
+        "local": false
+    },
+    {
+        "name": "SuomiPOP",
+        "path": "https://digitacdn.akamaized.net/hls/live/629243/radiosuomipop/master.m3u8",
+        "local": false
+    },
+    {
+        "name": "HitMix",
+        "path": "https://digitacdn.akamaized.net/hls/live/629243/hitmix/master-128000.m3u8",
+        "local": false
+    },
+    {
+        "name": "Yle Puhe",
+        "path": "http://yleuni-f.akamaihd.net/i/yleliveradiohd_5@113882/master.m3u8",
+        "local": false
+    },
+    {
+        "name": "Radio Rock",
+        "path": "https://digitacdn.akamaized.net/hls/live/629243/radiorock/master.m3u8",
+        "local": false
+    },
+    {
+        "name": "Kiss",
+        "path": "https://stream.bauermedia.fi/kiss/kiss_128.mp3",
+        "local": false
+    },
+    {
+        "name": "Iskelmä Rex",
+        "path": "http://stream2.bauermedia.fi/isk-rex.mp3",
+        "local": false
+    },
+    {
+        "name": "Radio Romania",
+        "path": "http://89.238.227.6:8000/",
+        "local": false
+    },
+    {
+        "name": "HALEXS",
+        "path": "http://necenzurat.capitalfm.ro:8000/",
+        "local": false
+    },
+    {
+        "name": "CykaBlyat",
+        "path": "http://air.radiorecord.ru:805/hbass_320",
+        "local": false
+    },
+    {
+        "name": "Tripolosk",
+        "path": "./sounds/tripolosk.mp3",
+        "local": true
+    },
+    {
+        "name": "Adidas",
+        "path": "./sounds/Adidas.mp3",
+        "local": true
+    },
+    {
+        "name": "PuuhaPeter",
+        "path": "./sounds/puuha_peter.mp3",
+        "local": true
+    },
+    {
+        "name": "Kaapou",
+        "path": "./sounds/kaapou.mp3",
+        "local": true
+    },
+    {
+        "name": "Ooppeli",
+        "path": "./sounds/ooppeli.mp3",
+        "local": true
+    },
+    {
+        "name": "Datsun",
+        "path": "./sounds/datsun.mp3",
+        "local": true
+    },
+    {
+        "name": "Aioftötaikör",
+        "path": "./sounds/taikor.mp3",
+        "local": true
+    }
+]
