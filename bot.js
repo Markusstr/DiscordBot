@@ -2,15 +2,13 @@ const Discord = require('discord.js');
 const config = require('./config.js');
 const client = new Discord.Client({autoReconnect:true});
 const fs = require('fs');
-//const settings = require('./settings');
+const settings = require('./settings');
 
 //const koputus = require('./commands/koputus');
 
 client.commands = new Discord.Collection();
 client.log = require('./logger').log;
 client.tokens = require('./token.json');
-
-//client.volume = 0.2;
 
 
 fs.readdir('./commands/', (err, files) => {
@@ -33,7 +31,9 @@ fs.readdir('./commands/', (err, files) => {
 client.on('ready', () => {
     client.log('Botti on päällä');
 
-    //settings.init(client); // Tarkista että kaikilla palvelimilla on oma asetustiedosto.
+    settings.init(client);
+
+    client.settings = settings; // Tarkista että kaikilla palvelimilla on oma asetustiedosto.
 
 });
 

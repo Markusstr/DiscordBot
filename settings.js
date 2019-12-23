@@ -8,19 +8,25 @@ const defaultSettings = {
 
 const settingsDirectory = 'guild_settings/';
 
+const cache = new Map();
 
 
 function getSetting(guildid, settingname) {
-    // TODO hae asetus
+    return cache.get(guildid)[settingname];
 }
 
 function setSetting(guildid, settingname, newvalue) {
-    fs.writeFile('tiedostonimi', (data, err) => {
+
+    let filePath = `${settingsDirectory}settings-${guildid}.json`;
+
+    let settings = cache.get(guildid);
+
+    settings[settingname] = newvalue;
+
+    fs.writeFile(filePath, JSON.stringify(settings), err => {
         if (err) log(err);
-
-        log(data);
-
     });
+
 }
 
 function init(client) {
@@ -29,15 +35,22 @@ function init(client) {
     guilds.forEach(guild => {
         // Tarkista löytyykö guild asetushakemistosta.
 
-        fs.access(`${settingsDirectory}settings-${guild.id}.json`, fs.constants.F_OK, (fileNotFoundError) => {
+        let filePath = `${settingsDirectory}settings-${guild.id}.json`;
+
+        fs.access(filePath, fs.constants.F_OK, (fileNotFoundError) => {
             
             if(fileNotFoundError) { // Tiedostoa ei ole olemassa, luodaan se ja täytetään oletusasetuksilla.
-                let settings = Object.assign({}, defaultSettings);
+                let settings = Object.assign({}, defaultSettings); // Kopioidaan default asetukset uuteen tiedostoon.
                 settings.serverName = guild.name;
-                fs.writeFile(`${settingsDirectory}settings-${guild.id}.json`, JSON.stringify(settings, null, 2), 'utf8', err => {
+                fs.writeFile(filePath, JSON.stringify(settings, null, 2), 'utf8', err => {
                     if (err) log(err);
                     log(`Luotiin asetustiedosto palvelimelle ${guild.name}!`);
             
+                });
+            } else {
+                // Asetustiedosto palvelimelle löytyi
+                fs.readFile(filePath, 'utf8', (err, file) => {
+                    cache.set(guild.id, JSON.parse(file));
                 });
             }
 

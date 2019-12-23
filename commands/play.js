@@ -30,6 +30,8 @@ exports.run = async (client,message,args) => {
             dispatcher = voiceConnection.playArbitraryInput(sound.path);
         }
 
+        dispatcher.setVolume(client.settings.getSetting(message.guild.id, 'volume'));
+
         
 
         /* dispatcher.once('end', () => {
@@ -42,8 +44,6 @@ exports.run = async (client,message,args) => {
 
 
 
-
-    
 
     
 };
