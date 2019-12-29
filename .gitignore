@@ -5,4 +5,7 @@ token.json
 
 # Äänet
 sounds
+soundsources.json
+
+# Palvelinkohtaiset asetukset.
 guild_settings
