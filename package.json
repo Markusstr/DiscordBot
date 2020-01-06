@@ -25,6 +25,10 @@
     "got": "^10.1.0",
     "libsodium-wrappers": "^0.7.6",
     "node-opus": "^0.3.3",
-    "uws": "^100.0.1"
+    "uws": "^100.0.1",
+    "ytdl-core": "^1.0.5"
+  },
+  "optionalDependencies": {
+    "ffmpeg-static": "^3.0.0"
   }
 }

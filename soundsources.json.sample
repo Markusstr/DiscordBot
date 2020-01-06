@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Radio stream",
+        "path": "https://stream.example.com/radio_128.mp3",
+        "local": false
+    },
+    {
+        "name": "Local music",
+        "path": "./sounds/musiikki.mp3",
+        "local": true
+    }
+]

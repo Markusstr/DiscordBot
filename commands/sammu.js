@@ -14,13 +14,6 @@ exports.run = async (client,message,args) => {
     }
 };
 
-/*exports.run = (client,message,args) => {
-    client.log('Sammutuskomento vastaanotettu. Sammutetaan.');
-    message.channel.send('Sammutetaan!').then(() => {
-        client.destroy();
-    }).catch(err => console.log(err));
-};*/
-
 exports.help = {
     name: 'sammu'
 };

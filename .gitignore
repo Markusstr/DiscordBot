@@ -4,5 +4,8 @@ node_modules
 token.json
 
 # Äänet
-sounds
+sounds/*
+soundsources.json
+
+# Palvelinkohtaiset asetukset.
 guild_settings

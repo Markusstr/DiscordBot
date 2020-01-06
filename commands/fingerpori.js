@@ -23,7 +23,7 @@ exports.run = (client,message,args) => {
     }
 
 
-    got('angryaxi.mbnet.fi/fingerporiapi/api.json').then(response => {
+    got('http://angryaxi.mbnet.fi/fingerporiapi/api.json').then(response => {
         let fingerpori = JSON.parse(response.body);
         message.channel.send({
             'embed': {
