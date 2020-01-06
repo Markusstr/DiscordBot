@@ -18,8 +18,6 @@ exports.run = async (client,message,args) => {
         voiceConnection = await message.member.voiceChannel.join(); // Jos botti ei ole kanavalla ja ei puhu.
     }
 
-    //client.voiceConnections.get(message.guild.id).playFile('Esimerkki.mp3');
-
     // Voice connection soittaa tällä hetkellä jotain. Lopetetaan se.
     voiceConnection.dispatcher && voiceConnection.dispatcher.end();
 
@@ -57,9 +55,6 @@ exports.run = async (client,message,args) => {
 
         dispatcher.setVolume(client.settings.getSetting(message.guild.id, 'volume'));
 
-
-        //!play https://www.youtube.com/watch?v=dQw4w9WgXcQ
-        //!play iskelmä
     }
 
     

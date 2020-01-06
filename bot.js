@@ -4,8 +4,6 @@ const client = new Discord.Client({autoReconnect:true});
 const fs = require('fs');
 const settings = require('./settings');
 
-//const koputus = require('./commands/koputus');
-
 client.commands = new Discord.Collection();
 client.log = require('./logger').log;
 client.tokens = require('./token.json');
@@ -55,10 +53,6 @@ client.on('message', message => {
             message.channel.send(`Komentoa ${message} ei ole olemassa.`);
             return;
         }
-        /* if (message.content.startsWith(message.guild.emojis.find(emoji => emoji.name === 'kopkopsaatana'))) {
-            //tästä koputukseen
-            koputus.koputa(client, message);
-        } */
     }
 });
 
