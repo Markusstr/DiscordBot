@@ -37,7 +37,7 @@ exports.run = async (client,message,args) => {
 
     let viesti = '**Menneet pelit:**\n';
 
-    if (isEmpty(menneetpelit)) viesti = viesti.concat('Joukkueelle ei ole merkattu yhtään mennyttä peliä.');
+    if (menneetpelit.length === 0) viesti = viesti.concat('Joukkueelle ei ole merkattu yhtään mennyttä peliä.');
 
     menneetpelit.forEach(peli => {
 
@@ -59,7 +59,7 @@ exports.run = async (client,message,args) => {
 
     viesti = viesti.concat('\n**Tulevat pelit:**\n');
 
-    if (isEmpty(tulevatpelit)) viesti = viesti.concat('Joukkueelle ei ole merkattu yhtään tulevaa peliä.');
+    if (tulevatpelit.length === 0) viesti = viesti.concat('Joukkueelle ei ole merkattu yhtään tulevaa peliä.');
 
     tulevatpelit.forEach(peli => {
 
@@ -116,15 +116,6 @@ async function getMatches(client) {
     catch(matchesError) {
         client.log(`MatchesError: ${matchesError}`);
     }
-}
-
-function isEmpty(obj) {
-    for(var i in obj) {
-        if (obj.hasOwnProperty(i)) {
-            return false;
-        }
-    }
-    return true;
 }
 
 exports.help = {
