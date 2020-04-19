@@ -9,16 +9,16 @@ exports.run = async (client,message,args) => {
         return;
     }
 
-    let voiceConnection = message.guild.voiceConnection;
+    let voiceConnection = message.guild.me.voice; // Botin VoiceState
     if (!(voiceConnection && voiceConnection.speaking)) {
-        if (!message.member.voiceChannel) {
+        if (!message.member.voice.channelID) { // Komennon suorittajan VoiceState
             message.reply('minne mie liityn? Et ole millään kanavalla.');
             return;
         }
-        voiceConnection = await message.member.voiceChannel.join(); // Jos botti ei ole kanavalla ja ei puhu.
+        voiceConnection = await message.member.voice.channel.join(); // Jos botti ei ole kanavalla ja ei puhu.
     }
 
-    // Voice connection soittaa tällä hetkellä jotain. Lopetetaan se.
+    // Jos voice connection soittaa tällä hetkellä jotain. Lopetetaan se.
     voiceConnection.dispatcher && voiceConnection.dispatcher.end();
 
     if (args[0].toLowerCase().includes('youtube.com') || args[0].toLowerCase().includes('youtu.be')) {
@@ -27,7 +27,7 @@ exports.run = async (client,message,args) => {
             filter: 'audioonly'
         });
 
-        let dispatcher = voiceConnection.playStream(ytStream, {
+        let dispatcher = voiceConnection.play(ytStream, {
             seek: 0,
             volume: 1
         });
@@ -46,12 +46,7 @@ exports.run = async (client,message,args) => {
             return;
         }
 
-        let dispatcher;
-        if (sound.local) {
-            dispatcher = voiceConnection.playFile(sound.path);
-        } else {
-            dispatcher = voiceConnection.playArbitraryInput(sound.path);
-        }
+        let dispatcher = voiceConnection.play(sound.path);
 
         dispatcher.setVolume(client.settings.getSetting(message.guild.id, 'volume'));
 

@@ -1,5 +1,5 @@
 exports.run = async (client,message,args) => {
-    if (message.member.highestRole.id === '416306298045595669') {
+    if (message.member.roles.highest.id === '416306298045595669') {
         client.log('Sammutuskomento vastaanotettu. Sammutetaan.');
         try {
             await message.channel.send('Sammutetaan!'); // Odotetaan että viesti sammuttamisesta on saatu lähetettyä.

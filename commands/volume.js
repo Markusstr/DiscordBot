@@ -1,6 +1,6 @@
 exports.run = async (client,message,args) => {
 
-    if (message.guild.voiceConnection.dispatcher == undefined) return message.reply('en soita millään kanavalla.');
+    if (message.guild.voice.connection.dispatcher === undefined) return message.reply('en soita millään kanavalla.');
 
     let newvolume = (parseInt(args[0])/100);
     if (isNaN(newvolume)) {
@@ -13,7 +13,7 @@ exports.run = async (client,message,args) => {
         return;
     }
 
-    message.guild.voiceConnection.dispatcher.setVolume(newvolume);
+    message.guild.me.voice.connection.dispatcher.setVolume(newvolume);
     client.settings.setSetting(message.guild.id, 'volume', newvolume);
 
 };

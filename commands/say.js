@@ -1,5 +1,5 @@
 exports.run = (client,message,args) => {
-    let channel = message.guild.channels.find(channel => channel.type === 'text' && channel.name === args[0]);
+    let channel = message.guild.channels.cache.find(channel => channel.type === 'text' && channel.name === args[0]);
     if (channel) {
         args.shift();
         channel.send(args.join(' '));

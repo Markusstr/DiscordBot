@@ -1,7 +1,7 @@
 exports.run = async (client,message,args) => {
 
-    if (message.guild.voiceConnection.dispatcher) {
-        message.guild.voiceConnection.dispatcher.resume();
+    if (message.guild.me.voice.connection.dispatcher) {
+        message.guild.me.voice.connection.dispatcher.resume();
     } else {
         message.reply('en tällä hetkellä soita missään.')
     }

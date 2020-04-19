@@ -30,7 +30,7 @@ function setSetting(guildid, settingname, newvalue) {
 }
 
 function init(client) {
-    let guilds = client.guilds.array();
+    let guilds = client.guilds.cache.array();
 
     guilds.forEach(guild => {
         // Tarkista löytyykö guild asetushakemistosta.
