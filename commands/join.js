@@ -1,10 +1,10 @@
 exports.run = async (client,message,args) => {
 
-    if (message.guild.voiceConnection) {
+    if (message.guild.me.voice.connection) {
         message.reply('olen jo äänikanavalla!');
     } else {
-        if (message.member.voiceChannel) {
-            message.member.voiceChannel.join();
+        if (message.member.voice.channelID) {
+            message.member.voice.channel.join();
         } else {
             message.reply('minne mie liityn? Et ole millään kanavalla.');
         }
