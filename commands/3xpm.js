@@ -87,7 +87,7 @@ exports.run = async (client,message,args) => {
 
 async function getParticipants(client) {
     try {
-        let participants = await got(`https://${client.tokens.challongetoken}@api.challonge.com/v1/tournaments/3xPM8/participants.json`);
+        let participants = await got(`https://${client.tokens.challongetoken}@api.challonge.com/v1/tournaments/3xPM9/participants.json`);
         try {
             let participantsObject = JSON.parse(participants.body);
             return participantsObject;
@@ -103,7 +103,7 @@ async function getParticipants(client) {
 
 async function getMatches(client) {
     try {
-        let matches = await got(`https://${client.tokens.challongetoken}@api.challonge.com/v1/tournaments/3xPM8/matches.json`);
+        let matches = await got(`https://${client.tokens.challongetoken}@api.challonge.com/v1/tournaments/3xPM9/matches.json`);
         try {
             let matchesObject = JSON.parse(matches.body);
             return matchesObject;
